@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Component displaying a list of flights.
+ */
+
 class FlightBrowser {
     private final List<Flight> flightList;
 
@@ -19,8 +23,8 @@ class FlightBrowser {
     }
 
     void viewing() {
-        List<Flight> testList = checkList(flightList);
-        printInfo();                        // the available commands are described in this method
+        List<Flight> testList = checkList(flightList);      // List validation for condition 1 and condition 2
+        printInfo();                                        // the available commands are described in this method
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             Filter filter = Filter.ALL;
             String condition = " ";
@@ -42,7 +46,6 @@ class FlightBrowser {
             System.out.println(e.getMessage());
         }
     }
-
 
     private List<Flight> applyFilter(List<Flight> testList, Filter filter, String condition) throws ParseException {
         switch (filter){
@@ -90,7 +93,7 @@ class FlightBrowser {
                 .collect(Collectors.toList());
     }
 
-    static List<Flight> conditionThree(List<Flight> testList) {
+    static List<Flight> conditionThree(List<Flight> testList) {  // Не включил данное условие в checkList(), т.к. оно относится к фильтрам
         return testList.stream()
                 .filter(flight -> flight.getWaitingTimeForTransfer().toHoursPart() <= 2)
                 .collect(Collectors.toList());
