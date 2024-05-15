@@ -12,7 +12,7 @@ public class Filter_3 extends Filter {
     @Override
     public void applyFilter() {
         List<FlightViewing> newList = view.getFlightViewingList().stream()
-                .filter(flight -> flight.getWaitingTimeForTransfer().toHoursPart() <= 2)
+                .filter(flight -> flight.getWaitingTimeForTransfer().toMinutes() <= 120)
                 .collect(Collectors.toList());
         System.out.println(newList);
         view.setFlightViewingList(newList);

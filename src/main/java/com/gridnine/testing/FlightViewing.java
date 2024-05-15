@@ -39,7 +39,7 @@ public class FlightViewing extends Flight {
                 LocalDateTime arrivalDate = getSegments().get(i).getArrivalDate();
                 LocalDateTime departureDate = getSegments().get(i).getDepartureDate();
                 Duration travelTime = Duration.between(departureDate, arrivalDate);
-                if(arrivalDate.isAfter(departureDate)) travelTime = Duration.ZERO;
+                if(departureDate.isAfter(arrivalDate)) travelTime = Duration.ZERO;
                 waitingTimeForTransfer = waitingTimeForTransfer.minus(travelTime);
             }
             return waitingTimeForTransfer;
