@@ -63,7 +63,7 @@ class Flight {
     @Override
     public String toString() {
         return segments.stream().map(Object::toString)
-            .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(" "));
     }
 }
 
@@ -91,8 +91,8 @@ class Segment {
     @Override
     public String toString() {
         DateTimeFormatter fmt =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         return '[' + departureDate.format(fmt) + '|' + arrivalDate.format(fmt)
-            + ']';
+                + ']';
     }
 }
