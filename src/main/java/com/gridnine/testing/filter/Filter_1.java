@@ -1,4 +1,7 @@
-package com.gridnine.testing;
+package com.gridnine.testing.filter;
+
+import com.gridnine.testing.FlightViewing;
+import com.gridnine.testing.View;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,8 +16,7 @@ public class Filter_1 extends Filter {
     @Override
     public void applyFilter() {
         List<FlightViewing> newList = view.getFlightViewingList().stream()
-                .filter(flight -> flight.getSegments()
-                        .stream().findFirst().get().getDepartureDate().isAfter(LocalDateTime.now()))
+                .filter(flight -> flight.getDepartureDate().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
         System.out.println(newList);
         view.setFlightViewingList(newList);

@@ -1,7 +1,6 @@
 package com.gridnine.testing;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,16 +10,15 @@ public class FlightViewing extends Flight {
         super(segs);
     }
 
-    LocalDate getDeparture(){
-        return getSegments().get(0).getDepartureDate().toLocalDate();
+    public LocalDateTime getDepartureDate(){
+        return getSegments().get(0).getDepartureDate();
     }
 
-    LocalDate getArrival(){
-        int size = getSegments().size();
-        return getSegments().get(size - 1).getArrivalDate().toLocalDate();
+    public boolean isValidated(){
+        return getSegments().stream().allMatch(segment -> segment.getDepartureDate().isBefore(segment.getArrivalDate()));
     }
 
-    Duration getTravelTime(){
+    public Duration getTravelTime(){
         if(!getSegments().isEmpty()){
             return Duration.between(getSegments().get(0).getDepartureDate(), getSegments().get(getSegments().size()-1).getArrivalDate());
         }else {
@@ -28,19 +26,13 @@ public class FlightViewing extends Flight {
         }
     }
 
-    int getCountOfTransfer(){
-        return getSegments().size() - 1;
-    }
-
-    Duration getWaitingTimeForTransfer(){
-        if(getSegments().size() > 1){
+    public Duration getWaitingTimeForTransfer(){
+        int size = getSegments().size();
+        if(size > 1){
             Duration waitingTimeForTransfer = this.getTravelTime();
-            for (int i = 0; i < getSegments().size(); i++) {
-                LocalDateTime arrivalDate = getSegments().get(i).getArrivalDate();
-                LocalDateTime departureDate = getSegments().get(i).getDepartureDate();
-                Duration travelTime = Duration.between(departureDate, arrivalDate);
-                if(departureDate.isAfter(arrivalDate)) travelTime = Duration.ZERO;
-                waitingTimeForTransfer = waitingTimeForTransfer.minus(travelTime);
+            for (int i = 0; i < size; i++) {
+                Duration travelTimeOnSegment = Duration.between(getSegments().get(i).getDepartureDate(), getSegments().get(i).getArrivalDate());
+                waitingTimeForTransfer = waitingTimeForTransfer.minus(travelTimeOnSegment);
             }
             return waitingTimeForTransfer;
         }else {
