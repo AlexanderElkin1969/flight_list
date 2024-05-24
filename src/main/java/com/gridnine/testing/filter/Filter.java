@@ -1,4 +1,6 @@
-package com.gridnine.testing;
+package com.gridnine.testing.filter;
+
+import com.gridnine.testing.View;
 
 public abstract class Filter {
 
